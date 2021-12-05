@@ -3,11 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 
-/* TODO : - Fonction pour demander le mot à l'utilisateur
-          - Fonction cachant le mot avec des '*'
-          - Fonction pour demander d'entrer un caractère à l'utilisateur
-          - Fonction pour comparer les caractères jusqu'à découverte entière --> si caractère dans le mot alors afficher
-                                                                             --> sinon ne rien afficher
+/* TODO :  - Fonction pour comparer les caractères jusqu'à découverte entière --> si caractère dans le mot alors afficher
+                                                                              --> sinon ne rien afficher
 */
 
 // Demande le mot initial au Joueur1
@@ -20,7 +17,7 @@ char* hidingCharacter(char const *initialWord);
 char* guessCharacter();
 
 // Compare le caractère entré avec les caractères du mot initial
-char compareCharacter(char const *initialWord, char guessedCharacter);
+void compareCharacter(char const *initialWord, char guessedCharacter, char* hideCharacter);
 
 int getchar(void);
 void clearInputBuffer();
@@ -29,13 +26,20 @@ void clearInputBuffer();
 int main(int argc, char const *argv[]) {
   const char* initialWord = askWord();
 
-  //printf("%s\n", initialWord);
-
   char* hideCharacter = hidingCharacter(initialWord);
+
+do {
+
   printf("%s\n", hideCharacter);
 
   char* guessedCharacter = guessCharacter();
-  printf("%d\n", *guessedCharacter);
+  // printf("%c\n", *guessedCharacter);
+
+  compareCharacter(initialWord, *guessedCharacter, hideCharacter);
+
+} while(strcmp(initialWord, hideCharacter) != 0);
+
+  printf("Congrats ! The word was : %s\n", initialWord);
 
   return 0;
 }
@@ -54,7 +58,7 @@ const char* askWord(){
   scanf("%s", initialWord);
 
   clearInputBuffer();
-  
+
   return initialWord;
 
 }
@@ -80,16 +84,30 @@ char* guessCharacter(){
   printf("Please enter a character : ");
   *guessedCharacter = getchar();
 
+  clearInputBuffer();
+
   return guessedCharacter;
 
 }
 
 void clearInputBuffer(){
-  char characterFromInputBuffer;
+  // char characterFromInputBuffer;
 
-  while(characterFromInputBuffer != '\n'){
+  while(getchar() != '\n'){
 
-    characterFromInputBuffer = getchar();
+    // characterFromInputBuffer = getchar();
 
+  }
+}
+
+void compareCharacter(char const *initialWord, char guessedCharacter, char* hideCharacter){
+  int i;
+
+  for (i = 0; i < strlen(initialWord); i++) {
+
+    if(initialWord[i] == guessedCharacter){
+
+      hideCharacter[i] = initialWord[i];
+    }
   }
 }
