@@ -17,8 +17,5 @@ Ce jeu consiste à deviner un mot caché dont les lettres se découvrent ou non 
 - Ajouter des captures des parties
 - Ajouter un guide d'installation et de lancement
 
-### Autres
-- Ajouter un makefile
-
 ## Contributeurs
 - [Agenor2512](https://github.com/Agenor2512/)
